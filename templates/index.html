@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI 伴侣聊天机器人</title>
+</head>
+<body>
+    <h2>和你的AI伴侣聊天吧</h2>
+    <input type="text" id="input" placeholder="你想说什么...">
+    <button onclick="send()">发送</button>
+    <p id="reply"></p>
+
+    <script>
+        async function send() {
+            const input = document.getElementById("input").value;
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: input })
+            });
+
+            const data = await response.json();
+            document.getElementById("reply").innerText = "AI 伴侣：" + data.reply;
+        }
+    </script>
+</body>
+</html>
